@@ -126,7 +126,9 @@ do
             echo " ${uname} did not created"
             exit 1
         fi
-        useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print crypt("${pass_plain}", "\$6\$[seed]");'` ${uname}
+	# useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print crypt("${pass_plain}", "\$6\$[seed]");'` ${uname}
+	SALT=`cat /dev/urandom | tr -dc '[:alnum:]' | head -c 2`
+	useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print(crypt('${pass_plain}', '${SALT}'));'` ${uname}
         echo "${uname}:${uid} is successfully created"
     else
         echo "WARNING ${uname}:${uid} already exist, skipped"
