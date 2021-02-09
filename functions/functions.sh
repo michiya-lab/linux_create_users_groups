@@ -131,7 +131,7 @@ do
 	    # useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print crypt("${pass_plain}", "\$6\$[seed]");'` ${uname}
 	    SALT=`cat /dev/urandom | tr -dc '[:alnum:]' | head -c 2`
 	    useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print(crypt('${pass_plain}', '${SALT}'));'` ${uname}
-            if [ $? -eq 0 ]:
+            if [ $? -eq 0 ];
 	    then
 	    	echo "${uname}:${uid} is successfully created"
 	    else
