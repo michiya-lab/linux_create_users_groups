@@ -130,14 +130,14 @@ do
             fi
 	    # useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print crypt("${pass_plain}", "\$6\$[seed]");'` ${uname}
 	    SALT=a`cat /dev/urandom | tr -dc '[:alnum:]' | head -c 1`
-	    useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print(crypt("${pass_plain}", '${SALT}'));'` ${uname}
+	    useradd -m -d ${homedir} -u ${uid} ${FLAG_PRIMARY_GROUP} ${FLAG_SECONDARY_GROUP} ${FLAG_COMMENT} -s ${logshell} -p `perl -e 'print(crypt('${pass_plain}', '${SALT}'));'` ${uname}
             if [ $? -eq 0 ];
 	    then
 	    	echo "${uname}:${uid} is successfully created"
 	    else
 	        echo "faild to create ${uname}:${uid} "
-		echo perl -e 'print(crypt("${pass_plain}", '${SALT}'));'
-		perl -e 'print(crypt("${pass_plain}", '${SALT}'));'
+		echo perl -e 'print(crypt('${pass_plain}', '${SALT}'));'
+		perl -e 'print(crypt('${pass_plain}', '${SALT}'));'
 		exit 1
 	    fi
 	else
